@@ -17,6 +17,16 @@ function AppointmentList(){
         getAppointments();
     }, [])
 
+    async function cancelAppointmentStatus(appointmentID) {
+        const cancelUrl = `http://localhost:8080/api/appointments/${appointmentID}/cancel/`;
+        await fetch(cancelUrl, {method: "PUT"});
+    }
+
+    async function finishAppointmentStatus(appointmentID) {
+        const finishUrl = `http://localhost:8080/api/appointments/${appointmentID}/finish/`;
+        await fetch(finishUrl, {method: "PUT"});
+    }
+
 
     return (
         <table className="table table-striped">
@@ -28,20 +38,26 @@ function AppointmentList(){
                     <th>Time</th>
                     <th>Technician</th>
                     <th>Reason</th>
+                    <th>Status Update</th>
                 </tr>
             </thead>
             <tbody>
                 {appointments.map(appointment => {
-                    return (
-                        <tr key={appointment.id}>
-                            <td>{appointment.vin}</td>
-                            <td>{appointment.customer}</td>
-                            <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
-                            <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
-                            <td>{appointment.technician.id}</td>
-                            <td>{appointment.reason}</td>
-                        </tr>
-                    )
+                    if (appointment.status === "created") {
+                        return (
+                            <tr key={appointment.id}>
+                                <td>{appointment.vin}</td>
+                                <td>{appointment.customer}</td>
+                                <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
+                                <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
+                                <td>{appointment.technician.id}</td>
+                                <td>{appointment.reason}</td>
+                                <td>
+                                    <button className="btn btn-danger" type="button" onClick={() => cancelAppointmentStatus(appointment.id)}>Cancel</button>
+                                    <button className="btn btn-success" type="button" onClick={() => finishAppointmentStatus(appointment.id)}>Finish</button>
+                                </td>
+                            </tr>
+                    )}
                 })}
 
             </tbody>

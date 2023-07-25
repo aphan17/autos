@@ -132,3 +132,41 @@ def api_show_appointment(request, id):
     elif request.method == "DELETE":
         count, _ = Appointment.objects.filter(id=id).delete()
         return JsonResponse({"deleted": count>0})
+
+
+@require_http_methods(["PUT"])
+def api_cancel_appointment(request, id):
+    if request.method == "PUT":
+        try:
+            Appointment.objects.filter(id=id).update(status="canceled")
+            appointment = Appointment.objects.get(id=id)
+            return JsonResponse(
+                appointment,
+                encoder=AppointmentEncoder,
+                safe=False,
+            )
+        except:
+            response = JsonResponse(
+                {"message": "could not update appointment status"}
+            )
+            response.status_code = 400
+            return response
+
+
+@require_http_methods(["PUT"])
+def api_finish_appointment(request, id):
+    if request.method == "PUT":
+        try:
+            Appointment.objects.filter(id=id).update(status="finished")
+            appointment = Appointment.objects.get(id=id)
+            return JsonResponse(
+                appointment,
+                encoder=AppointmentEncoder,
+                safe=False,
+            )
+        except:
+            response = JsonResponse(
+                {"message": "could not update appointment status"}
+            )
+            response.status_code = 400
+            return response
