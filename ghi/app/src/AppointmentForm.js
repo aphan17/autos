@@ -93,8 +93,8 @@ function AppointmentForm() {
 
     return (
         <div className="shadow p-4 mt-4">
-            <h1>Add an Appointment</h1>
-            <form onSubmit={handleSubmit} className={formClasses} id="create-appointment-form">
+            <h1>Create a Service Appointment</h1>
+            <form onSubmit={handleSubmit} className={formClasses}>
                 <div className="form-floating mb-3">
                     <input required className="form-control" value={vin} onChange={handleVinChange} type="text" name="vin" id="vin"/>
                     <label htmlFor="vin">Automobile Vin</label>
