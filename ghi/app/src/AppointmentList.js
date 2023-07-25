@@ -17,14 +17,18 @@ function AppointmentList(){
         getAppointments();
     }, [])
 
-    async function cancelAppointmentStatus(appointmentID) {
+    function cancelAppointmentStatus(appointmentID) {
         const cancelUrl = `http://localhost:8080/api/appointments/${appointmentID}/cancel/`;
-        await fetch(cancelUrl, {method: "PUT"});
+        fetch(cancelUrl, {method: "PUT"}).then(() => {
+            window.location.reload();
+        })
     }
 
-    async function finishAppointmentStatus(appointmentID) {
+    function finishAppointmentStatus(appointmentID) {
         const finishUrl = `http://localhost:8080/api/appointments/${appointmentID}/finish/`;
-        await fetch(finishUrl, {method: "PUT"});
+        fetch(finishUrl, {method: "PUT"}).then(() => {
+            window.location.reload();
+        })
     }
 
 
