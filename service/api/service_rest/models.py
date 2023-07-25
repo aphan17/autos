@@ -4,7 +4,7 @@ from django.db import models
 class Technician(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    employee_id = models.PositiveIntegerField()
+    employee_id = models.PositiveIntegerField(unique=True)
 
 
 class AutomobileVO(models.Model):
@@ -14,7 +14,7 @@ class AutomobileVO(models.Model):
 
 class Appointment(models.Model):
     date_time = models.DateTimeField()
-    reason = models.CharField()
+    reason = models.CharField(max_length=100)
     status = models.CharField(max_length=50)
     vin = models.CharField(max_length=17, unique=True)
     customer = models.CharField(max_length=200)
