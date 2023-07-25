@@ -4,6 +4,7 @@ function TechnicianForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [employeeId, setEmployeeId] = useState('');
+    const [createSuccess, setCreateSuccess] = useState(false);
 
 
     async function handleSubmit(event) {
@@ -27,6 +28,7 @@ function TechnicianForm() {
             setFirstName('');
             setLastName('');
             setEmployeeId('');
+            setCreateSuccess(true);
         }
     }
 
@@ -46,10 +48,19 @@ function TechnicianForm() {
         setEmployeeId(value);
     }
 
+
+    let messageClasses = 'alert alert-success d-none mb-0';
+    let formClasses = '';
+    if (createSuccess) {
+        messageClasses = "alert alert-success mb-0";
+        formClasses = "d-none";
+    }
+
+
     return (
         <div className="shadow p-4 mt-4">
             <h1>Add a Technician</h1>
-            <form onSubmit={handleSubmit} id="create-technician-form">
+            <form onSubmit={handleSubmit} className={formClasses} id="create-technician-form">
                 <div className="form-floating mb-3">
                     <input className="form-control" value={firstName} onChange={handleFirstNameChange} placeholder="First Name" type="text" name="first_name" id="first_name"/>
                     <label htmlFor="first_name">First Name</label>
@@ -64,6 +75,9 @@ function TechnicianForm() {
                 </div>
                 <button className="btn btn-primary">Create</button>
             </form>
+            <div className={messageClasses} id="success-message">
+                Success! Technician created!
+            </div>
         </div>
     )
 }

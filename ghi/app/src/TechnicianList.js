@@ -15,7 +15,7 @@ function TechniciansList() {
     }
     useEffect(()=> {
         getTechnicians();
-    })
+    }, [])
 
     return (
         <table className = "table table-striped">

@@ -21,11 +21,15 @@ class TechnicianEncoder(ModelEncoder):
 def api_list_technicians(request):
     if request.method == "GET":
         technicians = Technician.objects.all()
-        return JsonResponse(
-            {"technicians": technicians},
-            encoder=TechnicianEncoder,
-            safe=False,
-        )
+        try:
+            return JsonResponse(
+                {"technicians": technicians},
+                encoder=TechnicianEncoder,
+                safe=False,
+            )
+        except Technician.DoesNotExist:
+            response = JsonResponse({"technician": "does not exist"})
+            response.status_code = 404
     else:
         content = json.loads(request.body)
         try:
