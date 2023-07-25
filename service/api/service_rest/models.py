@@ -15,11 +15,11 @@ class AutomobileVO(models.Model):
 class Appointment(models.Model):
     date_time = models.DateTimeField()
     reason = models.CharField(max_length=100)
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=50, default="created")
     vin = models.CharField(max_length=17, unique=True)
     customer = models.CharField(max_length=200)
     technician = models.ForeignKey(
         Technician,
         related_name="appointment",
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
     )

@@ -26,6 +26,7 @@ class AutomobileVO(ModelEncoder):
 class AppointmentEncoder(ModelEncoder):
     model = Appointment
     properties = [
+        "id",
         "date_time",
         "reason",
         "status",
@@ -76,12 +77,13 @@ def api_show_technician(request, id):
         except Technician.DoesNotExist:
             response = JsonResponse({"technician": "does not exist"})
             response.status_code = 404
+            return response
     elif request.method == "DELETE":
         count, _ = Technician.objects.filter(id=id).delete()
         return JsonResponse({"deleted": count>0})
 
 
-@require_http_methods(["GET"])
+@require_http_methods(["GET", "POST"])
 def api_list_appointments(request):
     if request.method == "GET":
         appointments = Appointment.objects.all()
@@ -90,3 +92,43 @@ def api_list_appointments(request):
             encoder=AppointmentEncoder,
             safe=False,
         )
+    else:
+        content = json.loads(request.body)
+
+        try:
+            technician = Technician.objects.get(id=content["technician"])
+            content["technician"] = technician
+            appointment = Appointment.objects.create(**content)
+            return JsonResponse(
+                appointment,
+                encoder=AppointmentEncoder,
+                safe=False,
+            )
+
+        except:
+            response = JsonResponse(
+                {"message": "could not create automobile"}
+            )
+            response.status_code = 400
+            return response
+
+
+@require_http_methods(["GET", "DELETE"])
+def api_show_appointment(request, id):
+    if request.method == "GET":
+        try:
+            appointment = Appointment.objects.get(id=id)
+            return JsonResponse(
+                appointment,
+                encoder=AppointmentEncoder,
+                safe=False
+            )
+        except Appointment.DoesNotExist:
+            response = JsonResponse(
+                {"appointment": "does not exist"}
+            )
+            response.status_code = 404
+            return response
+    elif request.method == "DELETE":
+        count, _ = Appointment.objects.filter(id=id).delete()
+        return JsonResponse({"deleted": count>0})
