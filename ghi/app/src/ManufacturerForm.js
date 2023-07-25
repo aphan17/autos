@@ -7,9 +7,9 @@ function ManufacturerForm() {
         event.preventDefault();
         const data = {
             name,
-        }
+        };
 
-        const manufacturerURL = "http://localhost:8100/api/manufacturers/"
+        const manufacturerURL = "http://localhost:8100/api/manufacturers/";
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
