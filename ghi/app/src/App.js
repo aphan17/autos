@@ -5,6 +5,7 @@ import ManufacturersList from './ManufacturersList';
 import ManufacturerForm from './ManufacturerForm';
 import TechniciansList from './TechnicianList';
 import TechnicianForm from './TechnicianForm';
+import AppointmentForm from './AppointmentForm';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           <Route path="technicians">
             <Route index element={<TechniciansList/>} />
             <Route path="create" element={<TechnicianForm/>} />
+          </Route>
+          <Route path="appointments">
+            <Route path="create" element={<AppointmentForm />} />
           </Route>
         </Routes>
       </div>
