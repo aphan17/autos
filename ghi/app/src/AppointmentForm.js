@@ -33,8 +33,6 @@ function AppointmentForm() {
             date_time: dateTime,
             technician,
         };
-        console.log(data.technician);
-        console.log(data);
 
         const appointmentUrl = "http://localhost:8080/api/appointments/";
         const fetchConfig = {
