@@ -24,7 +24,8 @@ function AppointmentList(){
                 <tr>
                     <th>Vin</th>
                     <th>Customer</th>
-                    <th>Date & Time</th>
+                    <th>Date</th>
+                    <th>Time</th>
                     <th>Technician</th>
                     <th>Reason</th>
                 </tr>
@@ -35,7 +36,8 @@ function AppointmentList(){
                         <tr key={appointment.id}>
                             <td>{appointment.vin}</td>
                             <td>{appointment.customer}</td>
-                            <td>{new Date(appointment.date_time).toLocaleString()}</td>
+                            <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
+                            <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
                             <td>{appointment.technician.id}</td>
                             <td>{appointment.reason}</td>
                         </tr>
