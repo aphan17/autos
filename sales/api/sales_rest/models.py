@@ -19,7 +19,7 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=250)
     last_name = models.CharField(max_length=250)
     address = models.CharField(max_length=250)
-    phone_number = models.CharField(max_length=12, unique=True)
+    phone_number = models.CharField(max_length=20, unique=True)
 
     def get_api_url(self):
         return f"{self.first_name} {self.last_name}"
