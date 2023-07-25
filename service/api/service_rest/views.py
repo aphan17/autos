@@ -5,7 +5,7 @@ import json
 # Create your views here.
 
 from common.json import ModelEncoder
-from .models import Technician
+from .models import Technician, AutomobileVO, Appointment
 
 class TechnicianEncoder(ModelEncoder):
     model = Technician
@@ -16,6 +16,26 @@ class TechnicianEncoder(ModelEncoder):
         "employee_id",
     ]
 
+class AutomobileVO(ModelEncoder):
+    model = AutomobileVO
+    properties = [
+        "vin",
+        "sold",
+    ]
+
+class AppointmentEncoder(ModelEncoder):
+    model = Appointment
+    properties = [
+        "date_time",
+        "reason",
+        "status",
+        "vin",
+        "customer",
+        "technician",
+    ]
+    encoders = {
+        "technician": TechnicianEncoder(),
+    }
 
 @require_http_methods(["GET", "POST"])
 def api_list_technicians(request):
@@ -59,3 +79,14 @@ def api_show_technician(request, id):
     elif request.method == "DELETE":
         count, _ = Technician.objects.filter(id=id).delete()
         return JsonResponse({"deleted": count>0})
+
+
+@require_http_methods(["GET"])
+def api_list_appointments(request):
+    if request.method == "GET":
+        appointments = Appointment.objects.all()
+        return JsonResponse(
+            {"appointments": appointments},
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
