@@ -76,16 +76,22 @@ def api_show_technician(request, id):
                 safe=False
             )
         except Technician.DoesNotExist:
-            response = JsonResponse({"message": "does not exist"})
+            response = JsonResponse(
+                {"message": "does not exist"}
+            )
             response.status_code = 404
             return response
     else:
         try:
             technician = Technician.objects.get(id=id)
             technician.delete()
-            return JsonResponse({"message": "delete successful"})
+            return JsonResponse(
+                {"message": "delete successful"}
+            )
         except Technician.DoesNotExist:
-            response = JsonResponse({"message": "does not exist"})
+            response = JsonResponse(
+                {"message": "does not exist"}
+            )
             response.status_code = 404
             return response
 
@@ -132,7 +138,7 @@ def api_show_appointment(request, id):
             )
         except Appointment.DoesNotExist:
             response = JsonResponse(
-                {"appointment": "does not exist"}
+                {"message": "does not exist"}
             )
             response.status_code = 404
             return response
@@ -140,9 +146,13 @@ def api_show_appointment(request, id):
         try:
             appointment = Appointment.objects.get(id=id)
             appointment.delete()
-            return JsonResponse({"message": "delete successful"})
+            return JsonResponse(
+                {"message": "delete successful"}
+            )
         except Appointment.DoesNotExist:
-            response = JsonResponse({"message": "does not exist"})
+            response = JsonResponse(
+                {"message": "does not exist"}
+            )
             response.status_code = 404
             return response
 
@@ -159,7 +169,9 @@ def api_cancel_appointment(request, id):
                 safe=False,
             )
         except Appointment.DoesNotExist:
-            response = JsonResponse({"message": "does not exist"})
+            response = JsonResponse(
+                {"message": "does not exist"}
+            )
             response.status_code = 404
             return response
 
@@ -176,7 +188,9 @@ def api_finish_appointment(request, id):
                 safe=False,
             )
         except Appointment.DoesNotExist:
-            response = JsonResponse({"message": "does not exist"})
+            response = JsonResponse(
+                {"message": "does not exist"}
+            )
             response.status_code = 404
             return response
 
