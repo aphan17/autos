@@ -30,7 +30,7 @@ function ServiceHistory(){
         }
     }
     useEffect(() => {
-        getAutomobiles();
+        getAutomobiles(automobiles);
     }, [])
 
 
@@ -39,8 +39,8 @@ function ServiceHistory(){
         <div className="p-4 mt-4">
             <h1>Service History</h1>
             <form>
-                <div>
-                    <input type="search" placeholder="Search by Vin..."></input>
+                <div id="search-bar">
+                    <input type="search" placeholder="Search by Vin..." name="search" id="search"></input>
                     <button>Search</button>
                 </div>
                 <table className="table table-striped">
@@ -61,7 +61,17 @@ function ServiceHistory(){
                                 return (
                                     <tr key={appointment.id}>
                                         <td>{appointment.vin}</td>
-                                        <td></td>
+                                    {automobiles.reduce(automobile => {
+                                        if (automobile.vin === appointment.vin) {
+                                            return (
+                                                <td key={automobile.id}>yes</td>
+                                            )
+                                        } else {
+                                            return (
+                                                <td key={automobile.id}>no</td>
+                                            )
+                                        }
+                                    })}
                                         <td>{appointment.customer}</td>
                                         <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
                                         <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>

@@ -43,7 +43,7 @@ function AppointmentList(){
         }
     }
     useEffect(() => {
-        getAutomobiles();
+        getAutomobiles(automobiles);
     }, [])
 
 
@@ -52,6 +52,7 @@ function AppointmentList(){
             <thead>
                 <tr>
                     <th>Vin</th>
+                    <th>vip</th>
                     <th>Customer</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -66,6 +67,17 @@ function AppointmentList(){
                         return (
                             <tr key={appointment.id}>
                                 <td>{appointment.vin}</td>
+                                {automobiles.reduce(automobile => {
+                                    if (automobile.vin === appointment.vin) {
+                                        return (
+                                            <td key={automobile.id}>yes</td>
+                                        )
+                                    } else {
+                                        return (
+                                            <td key={automobile.id}>no</td>
+                                        )
+                                    }
+                                })}
                                 <td>{appointment.customer}</td>
                                 <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
                                 <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
