@@ -18,6 +18,21 @@ function AppointmentList(){
         getAppointments();
     }, [])
 
+    async function getAutomobiles() {
+        const response = await fetch("http://localhost:8080/api/automobiles/");
+        if (response.ok) {
+            const data = await response.json();
+            const automobiles = data.automobiles;
+            setAutomobiles(automobiles);
+        } else {
+            console.error("An error occured fetching the data")
+        }
+    }
+    useEffect(() => {
+        getAutomobiles();
+    }, [])
+
+
     function cancelAppointmentStatus(appointmentID) {
         const cancelUrl = `http://localhost:8080/api/appointments/${appointmentID}/cancel/`;
         fetch(cancelUrl, {method: "PUT"}).then(() => {
@@ -31,21 +46,6 @@ function AppointmentList(){
             window.location.reload();
         })
     }
-
-    async function getAutomobiles() {
-        const response = await fetch("http://localhost:8080/api/automobiles/");
-        if (response.ok) {
-            const data = await response.json();
-            const automobiles = data.automobiles;
-            setAutomobiles(automobiles);
-        } else {
-            console.error("An error occured fetching the data")
-        }
-    }
-    useEffect(() => {
-        getAutomobiles(automobiles);
-    }, [])
-
 
     return (
         <table className="table table-striped">
@@ -67,7 +67,7 @@ function AppointmentList(){
                         return (
                             <tr key={appointment.id}>
                                 <td>{appointment.vin}</td>
-                                {automobiles.reduce(automobile => {
+                                {automobiles.map(automobile => {
                                     if (automobile.vin === appointment.vin) {
                                         return (
                                             <td key={automobile.id}>yes</td>

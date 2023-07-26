@@ -71,7 +71,7 @@ function ServiceHistory(){
                                 return (
                                     <tr key={appointment.id}>
                                         <td>{appointment.vin}</td>
-                                    {automobiles.reduce(automobile => {
+                                    {automobiles.map(automobile => {
                                         if (automobile.vin === appointment.vin) {
                                             return (
                                                 <td key={automobile.id}>yes</td>
