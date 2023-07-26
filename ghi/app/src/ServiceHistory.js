@@ -36,47 +36,49 @@ function ServiceHistory(){
 
 
     return (
-        <table className="table table-striped">
-            <thead>
-                <tr>
-                    <th>Vin</th>
-                    <th>Vip</th>
-                    <th>Customer</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Technician</th>
-                    <th>Reason</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {appointments.map(appointment => {
-                        return (
-                            <tr key={appointment.id}>
-                                <td>{appointment.vin}</td>
-                                {automobiles.map(automobile => {
-                                    if (automobile.vin === appointment.vin) {
-                                        return (
-                                            <td key={automobile.id}>yes</td>
-                                        )
-                                    } else {
-                                        return (
-                                            <td key={automobile.id}>no</td>
-                                        )
-                                    }
-                                })}
-                                <td>{appointment.customer}</td>
-                                <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
-                                <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
-                                <td>{appointment.technician.id}</td>
-                                <td>{appointment.reason}</td>
-                                <td>{appointment.status}</td>
-                            </tr>
-                    )
-                })}
+        <div className="p-4 mt-4">
+            <h1>Service History</h1>
+            <form>
+                <div>
+                    <input type="search" placeholder="Search by Vin..."></input>
+                    <button>Search</button>
+                </div>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Vin</th>
+                            <th>Vip</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Technician</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {appointments.map(appointment => {
+                                return (
+                                    <tr key={appointment.id}>
+                                        <td>{appointment.vin}</td>
+                                        <td></td>
+                                        <td>{appointment.customer}</td>
+                                        <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
+                                        <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
+                                        <td>{appointment.technician.first_name}</td>
+                                        <td>{appointment.reason}</td>
+                                        <td>{appointment.status}</td>
+                                    </tr>
+                            )
+                        })}
 
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </form>
+
+
+        </div>
+
     )
 }
 
