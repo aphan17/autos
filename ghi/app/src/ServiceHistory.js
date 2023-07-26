@@ -3,6 +3,8 @@ import {useState, useEffect } from 'react';
 function ServiceHistory(){
     const [appointments, setAppointments] = useState([]);
     const [automobiles, setAutomobiles] = useState([]);
+    const [search, setSearch] = useState('');
+
 
     async function getAppointments() {
         const response = await fetch("http://localhost:8080/api/appointments/");
@@ -35,13 +37,14 @@ function ServiceHistory(){
 
 
 
+
     return (
         <div className="p-4 mt-4">
             <h1>Service History</h1>
             <form>
                 <div id="search-bar">
-                    <input type="search" placeholder="Search by Vin..." name="search" id="search"></input>
-                    <button>Search</button>
+                    <input type="text" onChange={e => setSearch(e.target.value)} placeholder='Search by Vin..'/>
+
                 </div>
                 <table className="table table-striped">
                     <thead>
@@ -57,7 +60,14 @@ function ServiceHistory(){
                         </tr>
                     </thead>
                     <tbody>
-                        {appointments.map(appointment => {
+                        {appointments.filter((item) => {
+                            if (item.vin.toLowerCase().includes(search)) {
+                                return item;
+                            } else if (search.toLowerCase() === "") {
+                                return item;
+                            }
+                        })
+                        .map(appointment => {
                                 return (
                                     <tr key={appointment.id}>
                                         <td>{appointment.vin}</td>
