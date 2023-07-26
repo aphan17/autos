@@ -16,9 +16,10 @@ class TechnicianEncoder(ModelEncoder):
         "employee_id",
     ]
 
-class AutomobileVO(ModelEncoder):
+class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [
+        "id",
         "vin",
         "sold",
     ]
@@ -170,3 +171,14 @@ def api_finish_appointment(request, id):
             )
             response.status_code = 400
             return response
+
+
+@require_http_methods(["GET"])
+def api_automobileVOs(request):
+    if request.method == "GET":
+        automobiles = AutomobileVO.objects.all()
+        return JsonResponse(
+            {"automobiles": automobiles},
+            encoder=AutomobileVOEncoder,
+            safe=False,
+        )
