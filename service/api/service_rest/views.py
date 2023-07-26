@@ -76,12 +76,18 @@ def api_show_technician(request, id):
                 safe=False
             )
         except Technician.DoesNotExist:
-            response = JsonResponse({"technician": "does not exist"})
+            response = JsonResponse({"message": "does not exist"})
             response.status_code = 404
             return response
-    elif request.method == "DELETE":
-        count, _ = Technician.objects.filter(id=id).delete()
-        return JsonResponse({"deleted": count>0})
+    else:
+        try:
+            technician = Technician.objects.get(id=id)
+            technician.delete()
+            return JsonResponse({"message": "delete successful"})
+        except Technician.DoesNotExist:
+            response = JsonResponse({"message": "does not exist"})
+            response.status_code = 404
+            return response
 
 
 @require_http_methods(["GET", "POST"])
@@ -130,9 +136,15 @@ def api_show_appointment(request, id):
             )
             response.status_code = 404
             return response
-    elif request.method == "DELETE":
-        count, _ = Appointment.objects.filter(id=id).delete()
-        return JsonResponse({"deleted": count>0})
+    else:
+        try:
+            appointment = Appointment.objects.get(id=id)
+            appointment.delete()
+            return JsonResponse({"message": "delete successful"})
+        except Appointment.DoesNotExist:
+            response = JsonResponse({"message": "does not exist"})
+            response.status_code = 404
+            return response
 
 
 @require_http_methods(["PUT"])
@@ -146,11 +158,9 @@ def api_cancel_appointment(request, id):
                 encoder=AppointmentEncoder,
                 safe=False,
             )
-        except:
-            response = JsonResponse(
-                {"message": "could not update appointment status"}
-            )
-            response.status_code = 400
+        except Appointment.DoesNotExist:
+            response = JsonResponse({"message": "does not exist"})
+            response.status_code = 404
             return response
 
 
@@ -165,12 +175,11 @@ def api_finish_appointment(request, id):
                 encoder=AppointmentEncoder,
                 safe=False,
             )
-        except:
-            response = JsonResponse(
-                {"message": "could not update appointment status"}
-            )
-            response.status_code = 400
+        except Appointment.DoesNotExist:
+            response = JsonResponse({"message": "does not exist"})
+            response.status_code = 404
             return response
+
 
 
 @require_http_methods(["GET"])
