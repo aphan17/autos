@@ -51,7 +51,7 @@ The foundation of this starts at our inventory domain, which keeps track of all 
 
 ### Manufacturers:
 
-![Img](/images/Manufacturer.png)
+![Img](/images/Manufacturer.png){width=50%}
 
 
 ### Inventory API (Optional)
