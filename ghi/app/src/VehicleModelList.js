@@ -2,7 +2,6 @@ import {useState, useEffect } from 'react';
 
 function VehicleModelList() {
     const [models, setModels] = useState([]);
-    const [manufacturers, setManufacturers] = useState([]);
 
     async function getModels() {
         const response = await fetch("http://localhost:8100/api/models/")
