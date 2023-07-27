@@ -8,15 +8,15 @@ function ManufacturersList() {
         const response = await fetch("http://localhost:8100/api/manufacturers/");
         if (response.ok) {
             const data = await response.json();
-            const manufacturers = data.manufacturers
-            setManufacturers(manufacturers)
+            const manufacturers = data.manufacturers;
+            setManufacturers(manufacturers);
         } else {
             console.error('An error occured fetching the data')
         }
     }
     useEffect(() => {
         getManufacturers();
-    })
+    }, [])
 
 
     return (
