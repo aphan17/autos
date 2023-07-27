@@ -46,14 +46,18 @@ function ServiceHistory(){
         return vipStatus;
     }
 
+    function handleSearchChange(event) {
+        const {value} = event.target;
+        setSearch(value)
+    }
+
 
     return (
         <div className="p-4 mt-4">
             <h1>Service History</h1>
             <form>
-                <div id="search-bar">
-                    <input type="text" onChange={e => setSearch(e.target.value)} placeholder='Search by Vin..'/>
-
+                <div id="form-outline">
+                    <input onChange={handleSearchChange} value={search} type="search" className='form-control' placeholder='Search by Vin..'/>
                 </div>
                 <table className="table table-striped">
                     <thead>
@@ -96,8 +100,6 @@ function ServiceHistory(){
                     </tbody>
                 </table>
             </form>
-
-
         </div>
 
     )
