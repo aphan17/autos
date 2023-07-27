@@ -170,9 +170,23 @@ microservice, here.
 | Action | Method | URL
 | ----------- | ----------- | ----------- |
 | List technicians | GET | http://localhost:8080/api/technicians/
-| Technician detail | GET | http://localhost:8080/api/technicians/<int:pk>/
 | Create a technician | POST | http://localhost:8080/api/technicians/
-| Delete a technician | DELETE | http://localhost:8080/api/technicians/<int:pk>/
+| Technician detail | GET | http://localhost:8080/api/technicians/<int:id>/
+| Delete a technician | DELETE | http://localhost:8080/api/technicians/<int:id>/
+
+
+LIST TECHNICIANS: Following this endpoint will get a list of all technicians that are currently employed.
+Return Value example:
+```
+{
+	"technicians": [
+		{
+			"id": 1,
+			"first_name": "Jack",
+			"last_name": "Smith",
+			"employee_id": 123
+		},
+```
 
 
 
