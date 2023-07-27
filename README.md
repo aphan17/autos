@@ -51,7 +51,14 @@ The foundation of this starts at our inventory domain, which keeps track of all 
 
 ### Manufacturers:
 
-![Img](/images/Manufacturer.png){width=50%}
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List manufacturers | GET | http://localhost:8100/api/manufacturers/
+| Create a manufacturer | POST | http://localhost:8100/api/manufacturers/ |
+| Get a specific manufacturer | GET | http://localhost:8100/api/manufacturers/id/
+| Update a specific manufacturer | PUT | http://localhost:8100/api/manufacturers/id/
+| Delete a specific manufacturer | DELETE | http://localhost:8100/api/manufacturers/id/
+
 
 
 ### Inventory API (Optional)
