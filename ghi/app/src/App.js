@@ -15,7 +15,7 @@ import RecordSaleForm from './Sales/RecordSaleForm';
 import ListSalesPeople from './Sales/ListSalesPeople';
 import ListAllSales from './Sales/ListAllSales';
 import ListCustomers from './Sales/ListCustomers';
-import SalesPersonForm from './Sales/SalesPersonForm
+import SalesPersonForm from './Sales/salesPersonForm';
 
 function App() {
   return (
