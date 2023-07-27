@@ -83,7 +83,7 @@ function AppointmentList(){
                                 <td>{appointment.customer}</td>
                                 <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
                                 <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
-                                <td>{appointment.technician.id}</td>
+                                <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
                                 <td>{appointment.reason}</td>
                                 <td>
                                     <button className="btn btn-danger" type="button" onClick={() => cancelAppointmentStatus(appointment.id)}>Cancel</button>
