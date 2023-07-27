@@ -47,12 +47,23 @@ function AppointmentList(){
         })
     }
 
+    function getVipStatus(appointmentVin) {
+        const matchVin = automobiles.find(automobile => automobile.vin === appointmentVin)
+        let vipStatus;
+        if (matchVin) {
+            vipStatus = "Yes";
+        } else {
+            vipStatus = "No";
+        }
+        return vipStatus;
+    }
+
     return (
         <table className="table table-striped">
             <thead>
                 <tr>
                     <th>Vin</th>
-                    <th>vip</th>
+                    <th>Vip?</th>
                     <th>Customer</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -64,20 +75,11 @@ function AppointmentList(){
             <tbody>
                 {appointments.map(appointment => {
                     if (appointment.status === "created") {
+                        const vipStatus = getVipStatus(appointment.vin);
                         return (
                             <tr key={appointment.id}>
                                 <td>{appointment.vin}</td>
-                                {automobiles.map(automobile => {
-                                    if (automobile.vin === appointment.vin) {
-                                        return (
-                                            <td key={automobile.id}>yes</td>
-                                        )
-                                    } else {
-                                        return (
-                                            <td key={automobile.id}>no</td>
-                                        )
-                                    }
-                                })}
+                                <td>{vipStatus}</td>
                                 <td>{appointment.customer}</td>
                                 <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
                                 <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
@@ -89,6 +91,7 @@ function AppointmentList(){
                                 </td>
                             </tr>
                     )}
+                    return false;
                 })}
 
             </tbody>

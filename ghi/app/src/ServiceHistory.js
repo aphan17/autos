@@ -32,10 +32,19 @@ function ServiceHistory(){
         }
     }
     useEffect(() => {
-        getAutomobiles(automobiles);
+        getAutomobiles();
     }, [])
 
-
+    function getVipStatus(appointmentVin) {
+        const matchVin = automobiles.find(automobile => automobile.vin === appointmentVin)
+        let vipStatus;
+        if (matchVin) {
+            vipStatus = "Yes";
+        } else {
+            vipStatus = "No";
+        }
+        return vipStatus;
+    }
 
 
     return (
@@ -50,7 +59,7 @@ function ServiceHistory(){
                     <thead>
                         <tr>
                             <th>Vin</th>
-                            <th>Vip</th>
+                            <th>Vip?</th>
                             <th>Customer</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -60,28 +69,20 @@ function ServiceHistory(){
                         </tr>
                     </thead>
                     <tbody>
-                        {appointments.filter((item) => {
-                            if (item.vin.toLowerCase().includes(search)) {
-                                return item;
+                        {appointments.filter(appointment => {
+                            if (appointment.vin.toLowerCase().includes(search)) {
+                                return appointment;
                             } else if (search.toLowerCase() === "") {
-                                return item;
+                                return appointment;
                             }
+                            return false;
                         })
                         .map(appointment => {
+                                const vipStatus = getVipStatus(appointment.vin);
                                 return (
                                     <tr key={appointment.id}>
                                         <td>{appointment.vin}</td>
-                                    {automobiles.map(automobile => {
-                                        if (automobile.vin === appointment.vin) {
-                                            return (
-                                                <td key={automobile.id}>yes</td>
-                                            )
-                                        } else {
-                                            return (
-                                                <td key={automobile.id}>no</td>
-                                            )
-                                        }
-                                    })}
+                                        <td>{vipStatus}</td>
                                         <td>{appointment.customer}</td>
                                         <td>{new Date(appointment.date_time).toLocaleDateString()}</td>
                                         <td>{new Date(appointment.date_time).toLocaleTimeString()}</td>
