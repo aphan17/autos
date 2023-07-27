@@ -10,12 +10,12 @@ import AppointmentList from './AppointmentList';
 import ServiceHistory from './ServiceHistory';
 import VehicleModelList from './VehicleModelList';
 import VehicleModelForm from './VehicleModelForm';
-import CustomerForm from './Sales/CustomerForm';
-import RecordSaleForm from './Sales/RecordSaleForm';
-import ListSalesPeople from './Sales/ListSalesPeople';
-import ListAllSales from './Sales/ListAllSales';
-import ListCustomers from './Sales/ListCustomers';
-import SalesPersonForm from './Sales/SalesPersonForm
+import CustomerForm from './sales/customerForm';
+import RecordSaleForm from './sales/recordSaleForm';
+import ListSalesPeople from './sales/listSalesPeople';
+import ListAllSales from './sales/listAllSales';
+import ListCustomers from './sales/listCustomers';
+import SalesPersonForm from './sales/salesPersonForm';
 
 function App() {
   return (
