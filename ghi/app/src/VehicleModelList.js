@@ -32,7 +32,7 @@ function VehicleModelList() {
                         <tr key={model.id}>
                             <td>{model.name}</td>
                             <td>{model.manufacturer.name}</td>
-                            <td><img src={model.picture_url} className='img-fluid' width="300" ></img></td>
+                            <td><img src={model.picture_url} alt="model of a car" className='img-fluid' width="300" ></img></td>
                         </tr>
                     )
                 })}
