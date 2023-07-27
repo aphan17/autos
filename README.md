@@ -163,8 +163,9 @@ Getting a list of vehicle models return value:
 
 ## Service microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+The service microservice has 3 models: Technician, Appointment and AutomobileVO. Appointment is the model that interacts with the other two models.
+
+The AutomobileVO is a value object that gets data about the automobiles in the inventory. The service poller automatically polls the inventory microservice for data, so the service microservice is getting updated data every 60 seconds. The integration between the inventory and service microservice is to determine if a customer has VIP status. The VIP status is determined if the appointment vin number matches one of an exisitng automobile.
 
 ### Technicians
 
@@ -211,7 +212,7 @@ The return value would be as followed:
 }
 ```
 
-DELETE TECHNICIAN: To delete a technican from the system, you would need to follow the same address as technical detail but change the request type to "DELETE". No data needs to be provided. You will need to pull the "id" value like in "TECHNICAL DETAIL" to ensure you are deleted the correct technician. Once you sumbit the DELETE request, the following message will be returned:
+DELETE TECHNICIAN: To delete a technican from the system, you would need to follow the same address as technical detail but change the request type to "DELETE". No data needs to be provided. You will need to pull the "id" value like in "TECHNICAL DETAIL" to ensure you have deleted the correct technician. Once you sumbit the DELETE request, the following message will be returned:
 ```
 {
 	"message": "delete successful"
@@ -226,14 +227,124 @@ If an error comes up, make sure the server is running and that the information y
 
 | Action | Method | URL
 | ----------- | ----------- | ----------- |
+| Create service appointment | POST | http://localhost:8080/api/serviceappointment/
 | List service appointments | GET | http://localhost:8080/api/serviceappointment/
 | Service appointment detail | GET | http://localhost:8080/api/serviceappointment/<int:id>
-| Create service appointment | POST | http://localhost:8080/api/serviceappointment/
 | Delete service appointment | DELETE | http://localhost:8080/api/serviceappointment/<int:id>
-| Set appointment status to "canceled" | PUT | http://localhost:8080/api/serviceappointment/<int:id>/cancel/
+| Set appointment status to "canceled" | PUT | http://localhost:8080/api/appointments/<int:id>/cancel/
 | Set appointment status to "finished" | PUT | http://localhost:8080/api/serviceappointment/<int:id>/finish/
 
+CREATE SERVICE APPOINTMENT - To create a service appointment, follow the format below. The "date_time" field has to follow ISO 8601 format. An example would be:
+```
+{
+	"date_time": "2023-09-20T16:00:00.000Z",
+	"reason": "tire rotation",
+	"vin": "123ASDF",
+	"customer": "John Doe",
+	"technician": 1
+}
+```
+The return value of this would be as followed. The "id" value is automatically generated and "status" field reflects the appointment status which defaulted as "created" by the program.
 
+```
+{
+	"id": 1,
+	"date_time": "2023-09-20T16:00:00.000Z",
+	"reason": "tire rotation",
+	"status": "created",
+	"vin": "123ASDF",
+	"customer": "John Doe",
+	"technician": {
+		"id": 1,
+		"first_name": "Jack",
+		"last_name": "Smith",
+		"employee_id": 123
+	}
+}
+```
+
+LIST SERVICE APPOINTMENTS: Following this endpoint will give you a list of all the service appointments. Since this is a GET request, no data needs to be provided.
+```
+{
+	"appointments": [
+		{
+			"id": 1,
+			"date_time": "2023-09-20T16:00:00.000Z",
+			"reason": "tire rotation",
+			"status": "created",
+			"vin": "123ASDF",
+			"customer": "John Doe",
+			"technician": {
+				"id": 1,
+				"first_name": "Jack",
+				"last_name": "Smith",
+				"employee_id": 123
+			}
+		},
+    ]
+}
+```
+SERVICE APPOINTMENT DETAIL: As this is a GET request, no data needs to be provided. Like in TECHNICIAN DETAIL, the "id" value will replace "<int:id>". This will provide the service appointment details.
+```
+{
+    "id": 1,
+    "date_time": "2023-09-20T16:00:00.000Z",
+    "reason": "tire rotation",
+    "status": "created",
+    "vin": "123ASDF",
+    "customer": "John Doe",
+    "technician": {
+        "id": 1,
+        "first_name": "Jack",
+        "last_name": "Smith",
+        "employee_id": 123
+    }
+}
+```
+
+DELETE SERVICE APPOINTMENT: To delete an appointment from the system, you would need to follow the same address as SERVICE APPOINTMENT DETAIL but change the request type to "DELETE". You will need to pull the "id" value like in "SERVICE APPOINTMENT" to ensure you have deleted the correct appointment. Once you sumbit the DELETE request, the following message will be returned:
+```
+{
+	"message": "delete successful"
+}
+```
+
+
+CANCEL SERVICE APPOINTMENT: Following this endpoint would set appointment status from "created" to "canceled". A JSON body would not be required as we are pulling in the "id" value to replace "<int:id>". This will determine which appointment we are canceling. The status would be updated in the return value. An example of the return value would be:
+```
+{
+    "id": 1,
+    "date_time": "2023-09-20T16:00:00.000Z",
+    "reason": "tire rotation",
+    "status": "canceled",
+    "vin": "123ASDF",
+    "customer": "John Doe",
+    "technician": {
+        "id": 1,
+        "first_name": "Jack",
+        "last_name": "Smith",
+        "employee_id": 123
+    }
+}
+```
+
+FINISH SERVICE APPOINTMENT: Following this endpoint would set appointment status from "created" to "finished". A JSON body would not be required as we are pulling in the "id" value to replace "<int:id>".This will determine which appointment we are canceling. The status would be updated in the return value. An example of the return value would be:
+```
+{
+    "id": 1,
+    "date_time": "2023-09-20T16:00:00.000Z",
+    "reason": "tire rotation",
+    "status": "finished",
+    "vin": "123ASDF",
+    "customer": "John Doe",
+    "technician": {
+        "id": 1,
+        "first_name": "Jack",
+        "last_name": "Smith",
+        "employee_id": 123
+    }
+}
+```
 
 ## Sales microservice
 
