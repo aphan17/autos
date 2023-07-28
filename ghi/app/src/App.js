@@ -17,7 +17,7 @@ import ListAllSales from './sales/listAllSales';
 import ListCustomers from './sales/listCustomers';
 import SalesPersonForm from './sales/salesPersonForm';
 import AutomobileForm from './CreateAutoMobile';
-import AutomobilesList from './AutomobileList';
+import AutomobilesList from './automobileList';
 
 function App() {
   return (

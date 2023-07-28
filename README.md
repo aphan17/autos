@@ -38,7 +38,8 @@ CarCar is composed of 3 microservices that interact with one other.
 - **Sales**
 
 ## Diagram
- - Put diagram here
+
+![ImageDiagram][/images/diagram.png]
 
 ## Integration
 
