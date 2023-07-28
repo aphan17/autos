@@ -235,6 +235,7 @@ CREATE TECHNICIAN - The technician model is composed of "first_name", "last_name
 ```
 
 - Note that no two technicians can have the same "employee_id", doing so will raise an error!
+- Employee_id is an integer value. Using characters will raise an error!
 
 LIST TECHNICIANS: Following this endpoint will get a list of all technicians that are currently employed. As this is a GET request, no data needs to be provided. Example of the Return Value:
 ```
