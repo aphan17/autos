@@ -74,7 +74,7 @@ function ServiceHistory(){
                     </thead>
                     <tbody>
                         {appointments.filter(appointment => {
-                            if (appointment.vin.toLowerCase().includes(search)) {
+                            if (appointment.vin.toLowerCase().includes(search.toLowerCase())) {
                                 return appointment;
                             } else if (search.toLowerCase() === "") {
                                 return appointment;
