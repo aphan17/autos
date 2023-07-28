@@ -8,8 +8,10 @@ async function fetchAutoData() {
     const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
-        const list = data.list
+        const list = data.autos
         setList(list)
+    } else {
+        console.error("An error occured fetching the data")
     }
 }
 
