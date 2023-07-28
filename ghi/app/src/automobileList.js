@@ -8,13 +8,22 @@ const fetchAutoData = async () => {
     const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
-        setList(data.autos)
+        const list = data.autos;
+        setList(list);
     }
 }
 
 useEffect(() => {
     fetchAutoData()
 }, []);
+
+function getSoldStatus(autoSold) {
+    if (autoSold === true) {
+        return "Yes";
+    } else {
+        return "No";
+    }
+}
 
 return (
     <div>
@@ -33,7 +42,8 @@ return (
                 </tr>
             </thead>
             <tbody>
-                {list?.map(auto => {
+                {list.map(auto => {
+                    const soldYesNo= getSoldStatus(auto.sold);
                     return (
                         <tr key={auto.id} value={auto.id}>
                             <td>{auto.vin}</td>
@@ -41,7 +51,7 @@ return (
                             <td>{auto.year}</td>
                             <td>{auto.model.name}</td>
                             <td>{auto.model.manufacturer.name}</td>
-                            <td><input type="checkbox" checked={auto.sold} /></td>
+                            <td>{soldYesNo}</td>
                         </tr>
                     )
                 })}

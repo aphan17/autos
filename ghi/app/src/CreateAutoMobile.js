@@ -4,35 +4,37 @@ function AutomobileForm() {
     const[color, setColor] = useState('');
     const[year, setYear] = useState('');
     const[vin, setVin] = useState('');
-    const[sold, setSold] = useState('');
-    const[model, setModel] = useState([]);
+    const[model, setModel] = useState('');
+    const[models, setModels] = useState([]);
+    const [createSuccess, setCreateSuccess] = useState(false);
 
-    const fetchData = async () => {
+
+    async function getModels(){
       const modelUrl = 'http://localhost:8100/api/models/'
-
       const response = await fetch(modelUrl);
 
       if (response.ok){
         const data = await response.json();
-        setModel(data.models)
+        const models = data.models
+        setModels(models)
       }
     }
-
     useEffect(() => {
-      fetchData();
+      getModels();
     }, []);
 
-    const handleSubmit = async (event) => {
+
+    async function handleSumbit(event) {
         event.preventDefault();
-        const data = {};
-        data.color = color;
-        data.year = year;
-        data.vin = vin;
-        data.sold = sold;
-        data.model = model;
+        const data = {
+          color,
+          year,
+          vin,
+          model_id: model,
+        };
+        console.log(data);
 
         const automobileUrl = "http://localhost:8100/api/automobiles/";
-
         const fetchConfig = {
             method: "post",
             body: JSON.stringify(data),
@@ -41,44 +43,50 @@ function AutomobileForm() {
             },
         };
 
-        const automobile = await fetch(automobileUrl, fetchConfig);
-        if (automobile.ok){
-                const newAutomobile = await automobile.json();
-                console.log(newAutomobile);
+        const response = await fetch(automobileUrl, fetchConfig);
+        console.log(response);
+        if (response.ok){
                 setColor('');
                 setYear('');
                 setVin('');
-                setSold('');
                 setModel('');
+                setCreateSuccess(true);
             };
       }
 
-      const handleColorChange = (event) => {
+    function handleColorChange (event) {
         const value = event.target.value;
         setColor(value);
       }
-      const handleYearChange = (event) => {
+    function handleYearChange (event) {
         const value = event.target.value;
         setYear(value);
       }
-      const handleVinChange = (event) => {
+    function handleVinChange (event) {
         const value = event.target.value;
         setVin(value);
       }
-      const handleSoldChange = (event) => {
+    function handleModelChange (event) {
         const value = event.target.value;
-        setSold(value);
+        setModel(value);
       }
-      const handleModelChange = (event) => {
-        const value = event.target.value;
-      }
+
+
+    let messageClasses = 'alert alert-success d-none mb-0';
+    let formClasses = '';
+    if (createSuccess) {
+        messageClasses = "alert alert-success mb-0";
+        formClasses = "d-none";
+    }
+
+
 
     return (
         <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Create an Automobile</h1>
-            <form onSubmit={handleSubmit} id="add-automobile">
+            <form onSubmit={handleSumbit} className={formClasses}id="add-automobile">
               <div className="form-floating mb-3">
                 <input onChange={handleColorChange} value={color} placeholder="Color" required type="text" name="color" id="color" className="form-control"/>
                 <label htmlFor="color">Color</label>
@@ -88,25 +96,24 @@ function AutomobileForm() {
                 <label htmlFor="year">Year</label>
               </div>
               <div className="form-floating mb-3">
-                <input onChange={handleVinChange} value={vin} placeholder="Vin" type="number" min="1" maxLength={17} name="vin" id="vin" className="form-control"/>
+                <input onChange={handleVinChange} value={vin} placeholder="Vin" type="text" maxLength="17" name="vin" id="vin" className="form-control"/>
                 <label htmlFor="vin">Vin</label>
               </div>
-              <div className="form-floating mb-3">
-                <input onChange={handleSoldChange} value={sold} placeholder="Sold" required type="text" name="sold" id="sold" className="form-control"/>
-                <label htmlFor="sold">Sold</label>
-              </div>
-              <div className="form-floating mb-3">
-              <select onChange={handleModelChange} required name="model" id="model" className="form-select">
-                <option value="">Choose a Model...</option>
-                {model?.map(model => {
-                  return (
-                    <option key={model.name} value={model.name}>{model.name}</option>
-                  )
-                })}
-                </select>
+              <div className="mb-3">
+                <select onChange={handleModelChange} value={model} required name="model_id" id="model" className="form-select">
+                  <option value="">Choose a Model...</option>
+                  {models.map(model => {
+                    return (
+                      <option key={model.id} value={model.id}>{model.name}</option>
+                    )
+                  })}
+                  </select>
                 </div>
               <button className="btn btn-primary">Create</button>
             </form>
+            <div className={messageClasses} id="success-message">
+                Success! Automobile created!
+            </div>
           </div>
         </div>
       </div>

@@ -49,13 +49,11 @@ function AppointmentList(){
 
     function getVipStatus(appointmentVin) {
         const matchVin = automobiles.find(automobile => automobile.vin === appointmentVin)
-        let vipStatus;
         if (matchVin) {
-            vipStatus = "Yes";
+            return "Yes";
         } else {
-            vipStatus = "No";
+            return "No";
         }
-        return vipStatus;
     }
 
     return (
