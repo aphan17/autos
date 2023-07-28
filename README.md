@@ -156,8 +156,50 @@ Getting a list of vehicle models return value:
 ```
 
 ### Automobiles:
+| Action | Method | URL
+| ----------- | ----------- | ----------- |
+| List automobile | GET | http://localhost:8100/api/automobiles/
+| Create an automobile | POST | http://localhost:8100/api/automobiles/:vin/
+| Get a specific automobile | GET | http://localhost:8100/api/models/:vin/
+| Update a specific automobile | PUT | http://localhost:8100/api/automobiles/:vin/
+| Delete a specific automobile | DELETE | http://localhost:8100/api/automobiles/:vin/
 
+Create an automobile with its color, year, VIN, and the id of the vehicle model (send this json body)
+```
+{
+  "color": "red",
+  "year": 2012,
+  "vin": "1C3CC5FB2AN120174",
+  "model_id": 1
+}
+```
 
+Update the color, year, and sold status of an automobile.
+```
+{
+  "color": "red",
+  "year": 2012,
+  "sold": true
+}
+```
+Getting a list of vehicle models returns a list of the detail information with the key "models".
+```
+{
+  "models": [
+    {
+      "href": "/api/models/1/",
+      "id": 1,
+      "name": "Sebring",
+      "picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
+      "manufacturer": {
+        "href": "/api/manufacturers/1/",
+        "id": 1,
+        "name": "Daimler-Chrysler"
+      }
+    }
+  ]
+}
+```
 
 
 
@@ -348,5 +390,8 @@ FINISH SERVICE APPOINTMENT: Following this endpoint would set appointment status
 
 ## Sales microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+Four models AutomobileVO, SalesPerson, Customer, and RecordOfSale.
+SalesPerson. The fields first name, last name, and the Employee's ID.
+For the Customer The fields first/last name, address, and phone number to collect our Customer's contact info.
+AutoMobile Two fields of VIN specific to each car in our database and sold. Users will know whether the vehicle has already been listed as sold.
+The Record of sales,  price field and, three foreign keys in the form of Automobile, salesperson, and Customer.
