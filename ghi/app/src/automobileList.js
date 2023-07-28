@@ -3,18 +3,27 @@ import { useState, useEffect } from "react";
 function AutomobilesList() {
 const [list, setList] = useState([]);
 
-const fetchAutoData = async () => {
+async function fetchAutoData() {
     const url = 'http://localhost:8100/api/automobiles/';
     const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
-        setList(data.autos)
+        const list = data.list
+        setList(list)
     }
 }
 
 useEffect(() => {
     fetchAutoData()
 }, []);
+
+function getSoldStatus(autoSold) {
+    if (autoSold === true){
+        return "Yes";
+    } else {
+        return "No";
+    }
+}
 
 return (
     <div>
@@ -33,7 +42,8 @@ return (
                 </tr>
             </thead>
             <tbody>
-                {list?.map(auto => {
+                {list.map(auto => {
+                    const soldStatus = getSoldStatus(auto.sold);
                     return (
                         <tr key={auto.id} value={auto.id}>
                             <td>{auto.vin}</td>
@@ -41,7 +51,7 @@ return (
                             <td>{auto.year}</td>
                             <td>{auto.model.name}</td>
                             <td>{auto.model.manufacturer.name}</td>
-                            <td><input type="checkbox" checked={auto.sold} /></td>
+                            <td>{auto.sold}</td>
                         </tr>
                     )
                 })}
