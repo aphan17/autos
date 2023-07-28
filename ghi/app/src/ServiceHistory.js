@@ -51,11 +51,15 @@ function ServiceHistory(){
         setSearch(value)
     }
 
+    function handleSumbit(event) {
+        event.preventDefault();
+    }
+
 
     return (
         <div className="p-4 mt-4">
             <h1>Service History</h1>
-            <form>
+            <form onSubmit={handleSumbit}>
                 <div id="form-outline">
                     <input onChange={handleSearchChange} value={search} type="search" className='form-control' placeholder='Search by Vin..'/>
                 </div>
