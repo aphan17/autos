@@ -14,7 +14,7 @@ Team:
 1. Fork this repository
 
 2. Clone the forked repository onto your computer:
-git clone hhttps://gitlab.com/ashphan/project-beta.git
+git clone hhttps://gitlab.com/ashphan/project-beta
 
 3. Build and run the project with docker using these commands:
 ```
