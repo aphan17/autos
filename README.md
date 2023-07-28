@@ -60,8 +60,6 @@ The foundation of this starts at our inventory domain, which keeps track of all 
 | Update a specific manufacturer | PUT | http://localhost:8100/api/manufacturers/id/
 | Delete a specific manufacturer | DELETE | http://localhost:8100/api/manufacturers/id/
 
-JSON body to send data:
-
 Create and update a manufacturer (Send this JSON body):
 -You cannot make two manufacturers with the same name
 ```
@@ -79,7 +77,7 @@ Creating, getting and updating a single manufacturer return value:
 }
 ```
 
-Getting a list of manfacturers return value:
+Getting a list of manufacturers return value:
 ```
 {
   "manufacturers": [
