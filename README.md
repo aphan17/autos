@@ -26,7 +26,7 @@ docker-compose up
 - Make sure all of the docker containers are running
 - View the project in the browsers: http://localhost:3000/
 
--put screenshot of mainpage once completed
+![Img](/images/mainpage.png)
 
 
 ## Design
@@ -39,7 +39,7 @@ CarCar is composed of 3 microservices that interact with one other.
 
 ## Diagram
 
-![ImageDiagram][/images/diagram.png]
+![Img](/images/diagram.png)
 
 ## Integration
 
