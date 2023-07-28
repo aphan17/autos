@@ -70,7 +70,7 @@ function TechnicianForm() {
                     <label htmlFor="last_name">Last Name</label>
                 </div>
                 <div className="form-floating mb-3">
-                    <input className="form-control" value={employeeId} onChange={handleEmployeeIdChange} placeholder="Employee ID" type="text" name="employee_id" id="employee_id"/>
+                    <input className="form-control" value={employeeId} onChange={handleEmployeeIdChange} placeholder="Employee ID" type="number" name="employee_id" id="employee_id"/>
                     <label htmlFor="employee_id">Employee ID</label>
                 </div>
                 <button className="btn btn-primary">Create</button>

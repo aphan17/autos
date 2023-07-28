@@ -44,7 +44,6 @@ function AutomobileForm() {
         };
 
         const response = await fetch(automobileUrl, fetchConfig);
-        console.log(response);
         if (response.ok){
                 setColor('');
                 setYear('');

@@ -43,7 +43,6 @@ function AppointmentForm() {
             },
         };
         const response = await fetch(appointmentUrl, fetchConfig);
-        console.log(response);
         if (response.ok) {
             setVin('');
             setCustomer('');
