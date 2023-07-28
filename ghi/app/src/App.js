@@ -16,8 +16,8 @@ import ListSalesPeople from './sales/listSalesPeople';
 import ListAllSales from './sales/listAllSales';
 import ListCustomers from './sales/listCustomers';
 import SalesPersonForm from './sales/salesPersonForm';
-import AutomobilesList from './AutomobileList';
 import AutomobileForm from './CreateAutoMobile';
+import AutomobilesList from './AutomobileList';
 
 function App() {
   return (
