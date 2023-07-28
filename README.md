@@ -181,22 +181,30 @@ Update the color, year, and sold status of an automobile.
   "sold": true
 }
 ```
-Getting a list of vehicle models returns a list of the detail information with the key "models".
+Getting a list of automobiles returns a list of the detail information with the key "autos".
 ```
 {
-  "models": [
-    {
-      "href": "/api/models/1/",
-      "id": 1,
-      "name": "Sebring",
-      "picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
-      "manufacturer": {
-        "href": "/api/manufacturers/1/",
-        "id": 1,
-        "name": "Daimler-Chrysler"
-      }
-    }
-  ]
+	"autos": [
+		{
+			"href": "/api/automobiles/1C3CC5FB2AN120174/",
+			"id": 1,
+			"color": "red",
+			"year": 2012,
+			"vin": "1C3CC5FB2AN120174",
+			"model": {
+				"href": "/api/models/1/",
+				"id": 1,
+				"name": "Sebring",
+				"picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
+				"manufacturer": {
+					"href": "/api/manufacturers/1/",
+					"id": 1,
+					"name": "Chrysler"
+				}
+			},
+			"sold": false
+		}
+	]
 }
 ```
 
